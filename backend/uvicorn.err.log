@@ -1,0 +1,7 @@
+INFO:     Will watch for changes in these directories: ['C:\\Users\\SERGI\\Desktop\\Sergi\\aircraft-fleet-monitor\\backend']
+INFO:     Loading environment from 'C:\Users\SERGI\Desktop\Sergi\aircraft-fleet-monitor\backend\.env'
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [11780] using WatchFiles
+INFO:     Started server process [22516]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.

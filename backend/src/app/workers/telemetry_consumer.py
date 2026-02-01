@@ -48,7 +48,7 @@ class TelemetryWorker:
             if not response:
                 continue
 
-            for stream_name, entries in response:
+            for _stream_name, entries in response:
                 for entry_id, data in entries:
                     try:
                         self._process_entry(data)
@@ -58,6 +58,8 @@ class TelemetryWorker:
 
     def _process_entry(self, data: dict[str, Any]) -> None:
         raw_payload = data.get("payload")
+        if raw_payload is None:
+            raw_payload = data.get(b"payload")
         if raw_payload is None:
             logger.warning("Entry missing payload", extra={"data": data})
             return

@@ -58,3 +58,26 @@ def test_worker_persists_payload_into_db() -> None:
         assert stored.id == event_id
         assert stored.aircraft_id == "EC-MYT"
         assert stored.raw_data == {"source": "adsb"}
+
+
+def test_worker_accepts_bytes_payload_key() -> None:
+    worker = TelemetryWorker(redis_client=DummyRedis())
+    worker.session_factory = TestingSessionLocal
+
+    event_id = uuid.uuid4()
+    payload = {
+        "id": str(event_id),
+        "aircraft_id": "EC-MYT",
+        "timestamp": datetime(2024, 1, 1, 12, 0, tzinfo=timezone.utc).isoformat(),
+        "latitude": 41.2974,
+        "longitude": 2.0833,
+        "altitude": 12000.0,
+        "speed": 450.0,
+        "raw_data": {"source": "adsb"},
+    }
+
+    worker._process_entry({b"payload": json.dumps(payload).encode("utf-8")})  # type: ignore[arg-type]
+
+    with TestingSessionLocal() as db:
+        stored = db.query(FlightEvent).filter_by(id=event_id).one()
+        assert stored.aircraft_id == "EC-MYT"

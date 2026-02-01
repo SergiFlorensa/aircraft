@@ -7,8 +7,15 @@ src/aircraft_fleet_monitor_backend.egg-info/top_level.txt
 src/app/__init__.py
 src/app/main.py
 src/app/api/__init__.py
+src/app/api/routes_events.py
 src/app/api/routes_health.py
 src/app/core/config.py
 src/app/db/models.py
 src/app/db/session.py
+src/app/services/__init__.py
+src/app/services/telemetry_stream.py
+src/app/workers/__init__.py
+src/app/workers/telemetry_consumer.py
+tests/test_events.py
 tests/test_health.py
+tests/test_worker_consumer.py
